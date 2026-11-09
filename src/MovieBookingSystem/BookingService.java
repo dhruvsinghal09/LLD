@@ -2,6 +2,7 @@ package MovieBookingSystem;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReentrantLock;
 public class BookingService {
 
@@ -10,7 +11,7 @@ public class BookingService {
     //BookingConfirmation(payment,booking) -> payment status -> book ticket 1000 -> 1-1-1-1-1-11
     //a1,b1,c1 -> multiple reentrants locks
 
-    Map<Integer, ReentrantLock> lockManager = new HashMap<>();
+    ConcurrentHashMap<Integer, ReentrantLock> lockManager = new ConcurrentHashMap<>();
 
     public Booking reserveSeat(Show show, List<ShowSeat> reserveSeats, String userId){
 
@@ -24,12 +25,11 @@ public class BookingService {
                 if(!lock.tryLock()){
                     throw new RuntimeException("MovieBookingSystem.Seat Already Locked");
                 }
-                lock.lock();
                 locks.add(lock);
             }
 
             for(ShowSeat seat:seats){
-                if(seat.getStatus().equals(SeatStatus.BOOKED)){
+                if(!seat.getStatus().equals(SeatStatus.AVAILABLE)){
                     throw new RuntimeException("MovieBookingSystem.Seat Already Booked");
                 }
             }
