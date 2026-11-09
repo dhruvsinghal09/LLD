@@ -1,3 +1,5 @@
+package MovieBookingSystem;
+
 public class Seat {
 
     private int seatId;

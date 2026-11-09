@@ -1,3 +1,5 @@
+package MovieBookingSystem;
+
 public enum Category {
 
     SILVER(100),

@@ -1,3 +1,5 @@
+package MovieBookingSystem;
+
 import java.util.List;
 
 public class Screen {

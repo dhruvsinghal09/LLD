@@ -1,3 +1,5 @@
+package MovieBookingSystem;
+
 import java.time.Duration;
 
 public class Movie {

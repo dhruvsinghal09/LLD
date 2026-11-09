@@ -1,3 +1,5 @@
+package MovieBookingSystem;
+
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.locks.ReentrantLock;
@@ -20,7 +22,7 @@ public class BookingService {
             for(ShowSeat seat:seats){
                 ReentrantLock lock = lockManager.computeIfAbsent(seat.getSeat().getSeatId(),r->new ReentrantLock());
                 if(!lock.tryLock()){
-                    throw new RuntimeException("Seat Already Locked");
+                    throw new RuntimeException("MovieBookingSystem.Seat Already Locked");
                 }
                 lock.lock();
                 locks.add(lock);
@@ -28,7 +30,7 @@ public class BookingService {
 
             for(ShowSeat seat:seats){
                 if(seat.getStatus().equals(SeatStatus.BOOKED)){
-                    throw new RuntimeException("Seat Already Booked");
+                    throw new RuntimeException("MovieBookingSystem.Seat Already Booked");
                 }
             }
 
